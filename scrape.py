@@ -19,6 +19,9 @@ headers = {'User-Agent' : 'AppleCoreMedia/1.0.0. (AAS-3.0.1; U; Windows NT 6.2)'
 
 r = requests.get(host+initial_dir+'/'+initial_playlist_file, headers=headers)
 
+print("here's the list of format directories and the playlist file inside:")
+print("(the first number is the video bitrate; the second is the audio bitrate)")
+
 for line in r.text.split('\n'):
     line, sep, junk = line.partition('\r') #to get rid of the carriage return
     if (len(line) > 0):
