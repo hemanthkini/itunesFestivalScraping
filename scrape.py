@@ -6,14 +6,19 @@ initial_dir, separator, initial_playlist_file = sys.argv[1].rpartition('/')
 print('initial playlist file: ' + initial_playlist_file)
 
 if len(sys.argv) < 3:
-    cookie_val = 'token=expires=1394720102~access=/auth/*~md5=0dc73aa30d88bfabef5fbef59e3ec3b1; ITMFID=9760E0D8ADD53C99099B49594144154F'
+    filename = 'downloaded_file.ts'
 else:
-    cookie_val = sys.argv[2]
+    filename = sys.argv[2]
 
 if len(sys.argv) < 4:
+    cookie_val = 'token=expires=1394720102~access=/auth/*~md5=0dc73aa30d88bfabef5fbef59e3ec3b1; ITMFID=9760E0D8ADD53C99099B49594144154F'
+else:
+    cookie_val = sys.argv[3]
+
+if len(sys.argv) < 5:
     sessid_val = 'E4F6365B-08C0-6C42-9D2F-3C49B555A8A2'
 else:
-    sessid_val = sys.argv[3]
+    sessid_val = sys.argv[4]
 
 headers = {'User-Agent' : 'AppleCoreMedia/1.0.0. (AAS-3.0.1; U; Windows NT 6.2)', 'Accept' : '*/*', 'Accept-Encoding' : 'gzip', 'X-Playback-Session-Id' : sessid_val, 'Cookie' : cookie_val, 'Connection' : 'keep-alive'}
 
@@ -41,7 +46,7 @@ print(r.headers)
 print(r.text)
 print(r.encoding)
 
-output_file = open("test.ts", "w")
+output_file = open(filename, "w")
 
 for line in r.text.split('\n'):
     line, sep, junk = line.partition('\r') #to get rid of the carriage return
